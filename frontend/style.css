@@ -1,0 +1,243 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body { 
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+  margin: 0; 
+  padding: 0; 
+  background: #f0f2f5;
+}
+
+#widget-container { 
+  width: 100%; 
+  max-width: 800px; 
+  margin: 20px auto; 
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  overflow: hidden;
+  position: relative;
+}
+
+h3 {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 20px;
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+#map { 
+  height: 450px; 
+  width: 100%; 
+  border: none;
+  position: relative;
+  z-index: 1;
+}
+
+#district-info { 
+  position: absolute;
+  top: 70px;
+  right: -400px;
+  width: 350px;
+  max-height: 350px;
+  overflow-y: auto;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1000;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+#district-info.show {
+  right: 20px;
+}
+
+#district-info h4 {
+  color: #2c3e50;
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+  border-bottom: 2px solid #e74c3c;
+  padding-bottom: 8px;
+}
+
+#district-info b {
+  color: #e74c3c;
+  font-weight: 600;
+}
+
+#district-info hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #ddd, transparent);
+  margin: 12px 0;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.close-btn:hover {
+  background: #c0392b;
+  transform: scale(1.1);
+}
+
+.hidden { 
+  display: none; 
+}
+
+/* Radar marker styles */
+.radar-marker {
+  position: relative !important;
+  background: transparent !important;
+  border: none !important;
+}
+
+.radar-dot {
+  width: 8px;
+  height: 8px;
+  background: #007bff;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+}
+
+.radar-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border: 2px solid rgba(0, 123, 255, 0.6);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: radar-pulse 2.5s infinite;
+  z-index: 1;
+}
+
+.radar-ring-2 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border: 1px solid rgba(0, 123, 255, 0.4);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: radar-pulse 2.5s infinite 1.25s;
+  z-index: 2;
+}
+
+@keyframes radar-pulse {
+  0% {
+    width: 8px;
+    height: 8px;
+    opacity: 1;
+  }
+  50% {
+    width: 40px;
+    height: 40px;
+    opacity: 0.3;
+  }
+  100% {
+    width: 60px;
+    height: 60px;
+    opacity: 0;
+  }
+}
+
+/* Loading animation */
+.loading {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #007bff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-right: 10px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  #widget-container {
+    margin: 10px;
+    max-width: none;
+    border-radius: 12px;
+  }
+
+  #map {
+    height: 350px;
+  }
+
+  #district-info {
+    position: fixed;
+    top: auto;
+    bottom: -100%;
+    left: 10px;
+    right: 10px;
+    width: auto;
+    max-height: 60vh;
+    border-radius: 12px 12px 0 0;
+  }
+
+  #district-info.show {
+    bottom: 0;
+    right: 10px;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+    padding: 15px;
+  }
+}
+
+/* Custom scrollbar */
+#district-info::-webkit-scrollbar {
+  width: 6px;
+}
+
+#district-info::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+#district-info::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+#district-info::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
