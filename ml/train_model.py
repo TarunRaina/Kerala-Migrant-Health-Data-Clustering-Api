@@ -191,7 +191,7 @@ def regenerate_district_json():
     clustered_df, scaler, kmeans = load_and_cluster()
     df_patients, df_cases, mask_map = fetch_live_data(mask=True)
     summary = analyze_disease_patterns(df_patients, df_cases, clustered_df, mask_map)
-    print_summary(summary)
+    #print_summary(summary)
     district_data = get_fresh_district_data(df_patients, df_cases, clustered_df, mask_map)
     with open(DISTRICT_JSON_PATH, "w") as f:
         json.dump(district_data, f, default=str, indent=4)
